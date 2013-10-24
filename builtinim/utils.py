@@ -52,7 +52,7 @@ def translator(frm='', to='', delete='', keep=None):
     return translate
 
 
-def list_get(l, i, v = None):
+def list_get(l, i, v=None):
     """This function gets an item from a list if it exists. It's faster than
     most of the other methods.
     """
@@ -67,7 +67,7 @@ def list_or_tuple(arg):
     return isinstance(arg, (list, tuple))
 
 
-def flatten(seq, to_expand = list_or_tuple):
+def flatten(seq, to_expand=list_or_tuple):
     """to flatten the list or tuple (even if any member includes embeded list
     or tuple).
     """
@@ -86,7 +86,7 @@ def dict_from_list(l):
     return dict(zip(l[::2], l[1::2]))
 
 
-def sub_dict(d, subkeys, default = None):
+def sub_dict(d, subkeys, default=None):
     """ return a new dict with subkeys and related values  """
     return dict([(k, d.get(k, default)) for k in subkeys])
 
@@ -170,7 +170,7 @@ def sample(n, r):
         yield n - population - 1
 
 
-def sample_wr(population, _choose = random.choice):
+def sample_wr(population, _choose=random.choice):
     """random samples with replacement"""
     while True: yield _choose(population)
 
