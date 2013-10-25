@@ -8,6 +8,8 @@ A collection of tools for sorting and searching.
 import operator
 import re
 import heapq
+from bisect import bisect_left, insort_left
+import UserDict
 
 def dict_sorted_values_by_key(d):
     ks = d.keys()
@@ -123,3 +125,67 @@ def find_iter(text, pattern):
         if pos < 0:
             break
         yield pos
+
+
+class Ratings(UserDict.DictMixin, dict):
+    """A dict-like tool whose keys are sorted by values.
+
+    Example:
+    >>> r = Ratings({'bob': 30, 'john': 20})
+    >>> r.update({'paul': 20, 'tom':10})
+    >>> r.has_key('paul')
+    True
+    >>> [r.rating(k) for k in ['bob', 'paul', 'john', 'tom']]
+    [3, 2, 1, 0]
+    >>> r.keys()
+    ['tom', 'john', 'paul', 'bob']
+    >>> r.values()
+    [10, 20, 20, 30]
+    """
+
+    def __init__(self, *args, **kwargs):
+        dict.__init__(self, *args, **kwargs)
+        self._rating = [(v, k) for k, v in dict.iteritems(self)]
+        self._rating.sort()
+
+    def copy(self):
+        return Ratings(self)
+
+    def __setitem__(self, k, v):
+        # delegate most works to dict, handling self._rating
+        if k in self:
+            del self._rating[self.rating(k)]
+        dict.__setitem__(self, k, v)
+        insort_left(self._rating, (v, k))
+
+    def __delitem__(self, k):
+        del self._rating[self.rating(k)]
+        dict.__delitem__(self, k)
+
+    # Use the method from dict instead of DictMixin as possible.
+    # it is faster.
+    __len__ = dict.__len__
+    __contains__ = dict.__contains__
+    has_key = __contains__
+
+    def __iter__(self):
+        for v, k in self._rating:
+            yield k
+
+    iterkeys = __iter__
+
+    def keys(self):
+        return list(self)
+
+    def rating(self, key):
+        item = self[key], key
+        i = bisect_left(self._rating, item)
+        if item == self._rating[i]:
+            return i
+        raise LookupError, "item not found in rating."
+
+    def get_val_by_rating(self, rating):
+        return self._rating[rating][0]
+
+    def get_key_by_rating(self, rating):
+        return self._rating[rating][1]
