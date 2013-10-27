@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
 """
@@ -209,6 +209,19 @@ def memoize(fn):
     memoizer.misses = 0
     return memoizer
 
+
+def empty_copy(obj):
+    """Avoid the calling of __init__ of other instance.
+
+    This is usually used in the __copy__ method of some class. After
+    calling this, we can call newcopy.__dict__.update(self.__dict__)
+    to get most of the attributes.
+    """
+    class _Empty(obj.__class__):
+        def __init__(self): pass
+    newcopy = _Empty()
+    newcopy.__class__ = obj.__class__
+    return newcopy
 
 def main():
     l1 = [1, 2, 3, [4, 5, 6, (7, 8, 9), [10, 11], 12], 13]
