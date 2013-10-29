@@ -8,6 +8,7 @@ BUILTIN modules IMproved.
 
 import string
 import random
+import heapq
 
 def reverse(s):
     """reverse a string by character, including unicode. Another method can
@@ -222,6 +223,38 @@ def empty_copy(obj):
     newcopy = _Empty()
     newcopy.__class__ = obj.__class__
     return newcopy
+
+
+def large_merge(*seqs):
+    """Merge some ordered sequences, some of them are pretty large.
+
+    Example:
+    >>> la = [1, 3, 5, 7]
+    >>> lb = [2, 4]
+    >>> lc = [14, 19]
+    >>> lall = []
+    >>> for i in large_merge(la, lb, lc):
+    ...     lall.append(i)
+    ...
+    >>> lall
+    [1, 2, 3, 4, 5, 7, 14, 19]
+    """
+    heap = []
+    for seq in seqs:
+        it = iter(seq)
+        for current_val in it:
+            heap.append((current_val, it))
+            break
+    heapq.heapify(heap)
+    while heap:
+        current_val, it = heap[0]
+        yield current_val
+        for current_val in it:
+            heapq.heapreplace(heap, (current_val, it))
+            break
+        else:
+            heapq.heappop(heap)
+
 
 def main():
     l1 = [1, 2, 3, [4, 5, 6, (7, 8, 9), [10, 11], 12], 13]
