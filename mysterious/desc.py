@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
+
 """
 A colleciton of snippet for python code about advanced feature descriptors.
 """
