@@ -3,6 +3,8 @@
 
 """
 A colleciton of snippet for python code about advanced feature descriptors.
+One of the best readings about descriptors is wrote by Raymond Hettinger,
+We can find it at: http://users.rcn.com/python/download/Descriptor.htm
 """
 
 class DefaultAlias(object):
