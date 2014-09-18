@@ -26,7 +26,7 @@ class ChangeCheckerMixin(object):
     >>> x.is_changed()
     True
     """
-    container_items = {dict: dict.iteritems, list: enumerate}
+    container_items = {dict: dict.items, list: enumerate}
     immutable = False
 
     def snapshot(self):

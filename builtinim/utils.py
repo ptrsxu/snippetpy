@@ -93,13 +93,12 @@ def sub_dict(d, subkeys, default=None):
 
 def invert_dict(d):
     """generate a dict with (v, k), (v, k) are values and keys from d."""
-    return dict([(v, k) for k, v in d.iteritems()])
+    return dict([(v, k) for k, v in d.items()])
 
 
-from itertools import izip
 def invert_dict_fast(d):
     """fast version of invert_dict"""
-    return dict(izip(d.itervalues(), d.iterkeys()))
+    return dict(zip(d.values(), d.keys()))
 
 
 def random_pick(elem_list, chance_list):
@@ -276,21 +275,21 @@ def main():
     print('d3: ' + str(d3))
 
     d4 = '3.14'
-    print "d4.isdigit(): %s" % d4.isdigit()
-    print "d4.is_a_number(): %s" % is_a_number(d4)
+    print("d4.isdigit(): %s" % d4.isdigit())
+    print("d4.is_a_number(): %s" % is_a_number(d4))
 
-    print "--------------------------------------------------"
+    print("--------------------------------------------------")
     def fib(n):
         if n < 2: return 1
         return fib(n-1) + fib(n-2)
 
-    print "testing fib without memoizer"
-    print "fib(38):"
-    print fib(38)
-    print "testing fib withmemoizer, this would be much faster..."
-    print "memoized fib(38):"
+    print("testing fib without memoizer")
+    print("fib(38):")
+    print(fib(38))
+    print("testing fib withmemoizer, this would be much faster...")
+    print("memoized fib(38):")
     fib = memoize(fib)
-    print fib(38)
+    print(fib(38))
 
 if __name__ == '__main__':
     main()

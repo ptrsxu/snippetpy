@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+import sys
 import inspect
+
 
 class SuperMixin(object):
     """A way to use super.
@@ -31,7 +33,8 @@ class SuperMixin(object):
     in DerivedB
     """
     def super(cls, *args, **kwargs):
-        frame = inspect.currentframe(1)
+        # frame = inspect.currentframe(1)
+        frame = sys._getframe(1)
         self = frame.f_locals['self']
         method_name = frame.f_code.co_name
         method = getattr(super(cls, self), method_name, None)

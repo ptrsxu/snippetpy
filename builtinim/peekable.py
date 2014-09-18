@@ -45,4 +45,3 @@ class Peekable(object):
         else:
             result = [self._cache[i] for i in range(n)]
         return result
-

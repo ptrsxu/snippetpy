@@ -4,7 +4,13 @@
 """
 run a function simultaneously with different args
 """
-import threading, time, Queue
+import sys
+PY2 = sys.version_info[0] == 2
+if PY2:
+    import threading, time, Queue
+else:
+    import threading, time
+    from queue import Queue
 
 class MultiThread(object):
     def __init__(self,
@@ -14,7 +20,10 @@ class MultiThread(object):
             queue_results = False):
         self._function = function
         self._lock = threading.Lock()
-        self._next_args = iter(args_vector).next
+        if PY2:
+            self._next_args = iter(args_vector).next
+        else:
+            self._next_args = iter(args_vector).__next__
         self._thread_pool = [ threading.Thread(target = self._dosome)
                 for i in range(max_threads) ]
         if queue_results:
@@ -38,7 +47,7 @@ class MultiThread(object):
         if self._queue is not None:
             return self._queue.get(*a, **kw)
         else:
-            raise ValueError, 'Not queueing results'
+            raise ValueError('Not queueing results')
     def start(self):
         for thread in self._thread_pool:
             time.sleep(0)
@@ -51,12 +60,12 @@ def main():
     import random
     def recite_n_times_table(n):
         for i in range(2, 11):
-            print "%d * %d = %d" % (n, i, n*i)
+            print("%d * %d = %d" % (n, i, n*i))
             time.sleep(0.3 + 0.3 * random.random())
     mt = MultiThread(recite_n_times_table, range(2, 11))
     mt.start()
     mt.join()
-    print "Well done!"
+    print("Well done!")
 
 if __name__=="__main__":
     main()
