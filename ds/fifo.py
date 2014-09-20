@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""from python cookbook 2nd edition."""
+
+
 class FIFO(list):
     """a FIFO, use append() for input and pop() for output.
 
@@ -15,6 +18,7 @@ class FIFO(list):
     def __init__(self):
         self.back = []
         self.append = self.back.append
+
     # a O(1) pop()
     def pop(self):
         if not self:
@@ -54,15 +58,19 @@ class FIFODict(dict):
     def __init__(self):
         self.nextin = 0
         self.nextout = 0
+
     def append(self, data):
         self.nextin += 1
         self[self.nextin] = data
+
     def pop(self):
         self.nextout += 1
         return dict.pop(self, self.nextout)
 
 
 import collections
+
+
 class FIFODeque(collections.deque):
     """a FIFO, based on a deque.
 
@@ -78,6 +86,8 @@ class FIFODeque(collections.deque):
 
 
 import UserDict
+
+
 class FIFOCache(object, UserDict.DictMixin):
     """A map that can remember the items set.
 
@@ -94,15 +104,20 @@ class FIFOCache(object, UserDict.DictMixin):
         self.num_entries = num_entries
         self.d = dict(d)
         self.l = []
+
     def __repr__(self):
         return '%r(%r, %r)' % (self.__class__.__name__,
-                self.num_entries, self.d)
+                               self.num_entries, self.d)
+
     def copy(self):
         return self.__class__(self.num_entries, self.d)
+
     def keys(self):
         return list(self.l)
+
     def __getitem__(self, key):
         return self.d[key]
+
     def __setitem__(self, key, value):
         d = self.d
         l = self.l
@@ -112,9 +127,11 @@ class FIFOCache(object, UserDict.DictMixin):
         l.append(key)
         if len(l) > self.num_entries:
             del d[l.pop(0)]
+
     def __delitem__(self, key):
         self.d.pop(key)
         self.l.remove(key)
+
     def __contains__(self, item):
         return item in self.d
     has_key = __contains__

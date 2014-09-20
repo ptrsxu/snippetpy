@@ -3,6 +3,8 @@ A colleciton of useful tools for date/time related.
 
 When we are considering a period between two dates, the period would
 include both start date and end date(it is [s, e], not [s, e)).
+
+from python cookbook 2nd edition.
 """
 
 from dateutil import rrule, easter

@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 """
+from python cookbook 2nd edition
 A collection of functions helpful for file related opeartions.
 """
 

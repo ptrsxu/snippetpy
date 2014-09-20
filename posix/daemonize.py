@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 """
+from python cookbook 3rd edition
 daemonize the current process
 
 no need to daemonize the process if it's started by 'initd'(which means you

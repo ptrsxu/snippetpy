@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 """
+from python cookbook 2nd edition.
 some tools for integers, strings, list, tuple, dict etc. Most of which are
 BUILTIN modules IMproved.
 """
@@ -9,6 +10,7 @@ BUILTIN modules IMproved.
 import string
 import random
 import heapq
+
 
 def reverse(s):
     """reverse a string by character, including unicode. Another method can
@@ -45,7 +47,7 @@ def translator(frm='', to='', delete='', keep=None):
     if keep is not None:
         all_chars = string.maketrans('', '')
         delete = all_chars.translate(all_chars,
-                keep.translate(all_chars, delete))
+                                     keep.translate(all_chars, delete))
 
     def translate(s):
         return s.translate(table, delete)
@@ -91,6 +93,7 @@ def sub_dict(d, subkeys, default=None):
     """ return a new dict with subkeys and related values  """
     return dict([(k, d.get(k, default)) for k in subkeys])
 
+
 def invert_dict(d):
     """generate a dict with (v, k), (v, k) are values and keys from d."""
     return dict([(v, k) for k, v in d.items()])
@@ -110,7 +113,8 @@ def random_pick(elem_list, chance_list):
     cumulative_probability = 0.0
     for item, item_probability in zip(elem_list, chance_list):
         cumulative_probability += item_probability
-        if x < cumulative_probability: break
+        if x < cumulative_probability:
+            break
     return item
 
 
@@ -125,9 +129,12 @@ def random_picks(elem_list, chance_list):
 
 def is_a_number(s):
     """test if s is a number(integer or float)"""
-    try:    float(s)
-    except ValueError:  return False
-    else: return True
+    try:
+        float(s)
+    except ValueError:
+        return False
+    else:
+        return True
 
 
 def unique(s):
@@ -155,9 +162,12 @@ def unique(s):
             u.append(x)
     return u
 
+
 def sample(n, r):
-    """random samples without replacement, refer to Donald E. Knuth TAOCP sec3.4.2
-    generate r numbers from [0, n] with order, better mem use than random.sample
+    """
+    random samples without replacement, refer to Donald E. Knuth TAOCP sec3.4.2
+    generate r numbers from [0, n] with order, better mem use than
+    random.sample
     """
     rand = random.random
     population = n
@@ -172,7 +182,8 @@ def sample(n, r):
 
 def sample_wr(population, _choose=random.choice):
     """random samples with replacement"""
-    while True: yield _choose(population)
+    while True:
+        yield _choose(population)
 
 
 def memoize(fn):
@@ -186,6 +197,7 @@ def memoize(fn):
             def func(p): pass
     """
     memo = {}
+
     def memoizer(*param_tuple, **kwds_dict):
         if kwds_dict:
             memoizer.namedargs += 1
@@ -218,7 +230,8 @@ def empty_copy(obj):
     to get most of the attributes.
     """
     class _Empty(obj.__class__):
-        def __init__(self): pass
+        def __init__(self):
+            pass
     newcopy = _Empty()
     newcopy.__class__ = obj.__class__
     return newcopy
@@ -264,7 +277,7 @@ def main():
     l2 = [x for x in range(11, 22)]
     print(dict_from_list(l2))
 
-    d1 = dict(k1 = 1, k2 = 2, k3 = 3, k4 = 4, k5 = 5, k6 = 6)
+    d1 = dict(k1=1, k2=2, k3=3, k4=4, k5=5, k6=6)
     subkeys = ['k1', 'k3', 'k5']
     print(sub_dict(d1, subkeys))
 
@@ -279,8 +292,10 @@ def main():
     print("d4.is_a_number(): %s" % is_a_number(d4))
 
     print("--------------------------------------------------")
+
     def fib(n):
-        if n < 2: return 1
+        if n < 2:
+            return 1
         return fib(n-1) + fib(n-2)
 
     print("testing fib without memoizer")

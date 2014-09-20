@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""from python cookbook 2nd edition."""
 import gzip
 
 try:
@@ -8,12 +9,14 @@ try:
 except ImportError:
     import pickle
 
+
 def save_pgz(filename, *objs):
     """save objects into compressed file."""
     f = gzip.open(filename, 'wb')
     for o in objs:
         pickle.dump(o, f, proto=2)
     f.close()
+
 
 def load_pgz(filename):
     """load objects from compressed file."""
@@ -24,4 +27,3 @@ def load_pgz(filename):
         except EOFError:
             break
     f.close()
-

@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""from python cookbook 2nd edition."""
 
 def curry(f, *a, **kw):
     """ showing curry technology """

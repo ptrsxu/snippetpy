@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
+from python cookbook 2nd edition.
 A collection of tools for sorting and searching.
 """
 
@@ -10,6 +11,7 @@ import re
 import heapq
 from bisect import bisect_left, insort_left
 import UserDict
+
 
 def dict_sorted_values_by_key(d):
     ks = d.keys()
@@ -39,6 +41,7 @@ def embedded_integers(s):
     pieces = re_digits.split(s)
     pieces[1::2] = map(int, pieces[1::2])
     return pieces[1::2]
+
 
 def list_sort_by_embedded_integers(l):
     return sorted(l, key=embedded_integers)
@@ -70,7 +73,7 @@ def qsort(l):
     if len(l) <= 1:
         return l
     return qsort([lt for lt in l[1:] if lt < l[0]]) + l[0:1] + \
-            qsort([ge for ge in l[1:] if ge >= l[0]])
+        qsort([ge for ge in l[1:] if ge >= l[0]])
 
 
 def kmp(text, pattern):
@@ -182,7 +185,7 @@ class Ratings(UserDict.DictMixin, dict):
         i = bisect_left(self._rating, item)
         if item == self._rating[i]:
             return i
-        raise LookupError, "item not found in rating."
+        raise LookupError("item not found in rating.")
 
     def get_val_by_rating(self, rating):
         return self._rating[rating][0]

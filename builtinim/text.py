@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 """
+from python cookbook 2nd edition.
 Some useful funcitons or classes for text handling.
 """
 from __future__ import absolute_import
@@ -44,7 +45,7 @@ def _translator(frm='', to='', delete='', keep=None):
     if keep is not None:
         all_chars = string.maketrans('', '')
         delete = all_chars.translate(all_chars,
-                keep.translate(all_chars, delete))
+                                     keep.translate(all_chars, delete))
 
     def translate(s):
         return s.translate(table, delete)
@@ -66,6 +67,7 @@ def _makefilter(keep):
     """
     all_chars = string.maketrans('', '')
     del_chars = all_chars.translate(all_chars, keep)
+
     def thefilter(s):
         return s.translate(all_chars, del_chars)
     return thefilter
@@ -91,6 +93,7 @@ class _Keeper(object):
     def __call__(self, s):
         return unicode(s).translate(self)
 
+
 def expand_by_marker(fmt, d, marker='"', safe=False):
     """expand a string which may have some items quoted by ``marker`` , expand
     them with the content in ``d`` . use ``""`` in the ``fmt`` to represent a
@@ -105,9 +108,11 @@ def expand_by_marker(fmt, d, marker='"', safe=False):
     """
 
     if safe:
-        def lookup(k):  return d.get(k, k.join(marker*2))
+        def lookup(k):
+            return d.get(k, k.join(marker*2))
     else:
-        def lookup(k):  return d[k]
+        def lookup(k):
+            return d[k]
 
     parts = fmt.split(marker)
     parts[1::2] = map(lookup, parts[1::2])
@@ -115,6 +120,8 @@ def expand_by_marker(fmt, d, marker='"', safe=False):
 
 
 import re
+
+
 def multiple_replace(text, adict):
     """
     example:
@@ -123,9 +130,11 @@ def multiple_replace(text, adict):
     'my name is peter, my age is 5'
     """
     regex = re.compile('|'.join(map(re.escape, adict)))
+
     def one_xlat(match):
         return adict[match.group(0)]
     return regex.sub(one_xlat, text)
+
 
 class MultiReplacer():
     """replace some words in a string. If the words match the keys of a given
@@ -142,10 +151,13 @@ class MultiReplacer():
         self.adict = dict(*args, **kwards)
         self.reobj = self.make_reobj()
     # change the re object policy by overriding the below method
+
     def make_reobj(self):
         return re.compile('|'.join(map(re.escape, self.adict)))
+
     def get_match(self, match):
         return self.adict[match.group(0)]
+
     def __call__(self, s):
         return self.reobj.sub(self.get_match, s)
 
@@ -156,18 +168,25 @@ class istr(str):
     """
     def __init__(self, *args):
         self._lowered = str.lower(self)
+
     def __repr__(self):
         return '%s(%s)' % (type(self).__name__, str.__repr__(self))
+
     def __hash__(self):
         return hash(self._lowered)
+
     def lower(self):
         return self._lowered
 
+
 def _make_case_insensitive(name):
     str_meth = getattr(str, name)
+
     def x(self, other, *args):
-        try: other = other.lower()
-        except (TypeError, AttributeError, ValueError): pass
+        try:
+            other = other.lower()
+        except (TypeError, AttributeError, ValueError):
+            pass
         return str_meth(self._lowered, other, *args)
     setattr(istr, name, x)
 
@@ -185,4 +204,6 @@ if PY3:
 else:
     translator = _translator
     makefilter = _makefilter
-    class Keeper(_Keeper): pass
+
+    class Keeper(_Keeper):
+        pass

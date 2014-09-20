@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""from python cookbook 2nd edition."""
 
 class Singleton(object):
     """ all subclass of Singleton will be a singleton, no necessary for rewriting __new__ """

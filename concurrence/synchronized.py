@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""
+from python cookbook 2nd edition.
+"""
 import inspect
+
 
 def wrap_callable(any_callable, before, after):
     def _wrapped(*args, **kwargs):

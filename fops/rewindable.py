@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+"""from python cookbook 2nd edition"""
 from __future__ import absolute_import
 from __future__ import print_function
 

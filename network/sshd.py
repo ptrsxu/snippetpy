@@ -1,3 +1,4 @@
+"""from python cookbook 2nd edition."""
 from __future__ import print_function
 
 import os

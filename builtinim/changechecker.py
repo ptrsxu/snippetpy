@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+"""
+from python cookbook 2nd edition.
+"""
+
 import copy
 
 class ChangeCheckerMixin(object):
@@ -84,4 +88,3 @@ class ChangeCheckerMixin(object):
                 return False
             return method_is_changed()
         return newitem != olditem
-

@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""from python cookbook 3rd edition."""
 
 def no_new_attrs(wrapped_setattr):
     def __setattr__(self, name, attr):

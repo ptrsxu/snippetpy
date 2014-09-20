@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+"""
+from python cookbook 2nd edition.
+"""
+
 from operator import itemgetter
 
 

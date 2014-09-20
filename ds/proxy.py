@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+"""from python cookbook 2nd edition."""
+
+
 class Proxy(object):
     """Base of all Proxy classes."""
     def __init__(self, obj):
@@ -12,6 +15,7 @@ class Proxy(object):
     def __getattr__(self, attr):
         return getattr(self._obj, attr)
 
+
 def make_binder(unbounded_method):
     def f(self, *args, **kwargs):
         return unbounded_method(self._obj, *args, **kwargs)
@@ -19,6 +23,7 @@ def make_binder(unbounded_method):
     return f
 
 known_proxy_classes = {}
+
 
 def proxy(obj, *specials):
     """Factory function that can delegate special functions to an obj.

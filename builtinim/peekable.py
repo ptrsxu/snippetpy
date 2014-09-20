@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: UTF-8 -*-
 
+"""
+from python cookbook 2nd edition.
+"""
 import collections
+
 
 class Peekable(object):
     """A iteration that can look forward with normal iter operations.

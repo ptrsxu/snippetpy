@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""from python cookbook 2nd edition."""
 
 class Readonly(object):
 
